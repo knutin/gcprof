@@ -47,6 +47,30 @@ before your process received any messages is associated with this
 identity. Please note that as starting a trace is asynchronous, some
 information might be lost.
 
+## Stats
+
+This is an example of stats created by running the provided `example_server`.
+
+    {ok,[[{key,{create_garbage,invocations}},
+          {observations,20},
+          {min,1},
+          {mean,9.0},
+          {max,17},
+          {sd,8.207826816681232},
+          {quantile_25,0.5},
+          {quantile_75,16.5},
+          {quantile_99,16.98},
+          {quantile_999,16.998}],
+         [{key,{create_garbage,runtime}},
+          {observations,20},
+          {min,690},
+          {mean,4220.85},
+          {max,8728},
+          {sd,2898.8413706350443},
+          {quantile_25,1062.0},
+          {quantile_75,5974.0},
+          {quantile_99,8727.8},
+          {quantile_999,8727.98}]]}
 
 ## Sampling
 
