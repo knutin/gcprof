@@ -48,7 +48,7 @@ process_cycle_test() ->
                     ?assertEqual(create_garbage, (identity_f())(Message))
             end
     end().
-    
+
 
 
 
@@ -213,7 +213,3 @@ messages_with_init_and_shutdown() ->
        {bin_old_vheap_block_size,46368}],
       {1316,876550,921654}},
      {down, Pid}].
-
-
-
-

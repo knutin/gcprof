@@ -76,11 +76,6 @@ garbage_in_init() ->
 
 
 example_single() ->
-    ?assertEqual({ok, []}, gcprof_aggregator:get_stats()), 
+    ?assertEqual({ok, []}, gcprof_aggregator:get_stats()),
     example_server:run(1, 2),
     timer:sleep(200).
-
-
-
-
-
