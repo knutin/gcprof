@@ -89,7 +89,7 @@ delete_element(Es, [H | T]) ->
 delete_element([], L) ->
     L.
 
-    
+
 
 
 %% @doc: Returns a list of gc trace messages for the given pid until
@@ -111,8 +111,8 @@ find_gcs_until_receive([_ | Messages], Pid) ->
     find_gcs_until_receive(Messages, Pid).
 
 
-    
-    
+
+
 %% @doc: Receive loop. When the message 'process' is received, the
 %% current queue of trace messages is returned. Anything else is
 %% received without filtering, to not give any preference to any type
@@ -134,7 +134,7 @@ send_results(Parent, GCData) ->
                                                {start, P} ->
                                                    {P, init}
                                            end,
-                                                   
+
                           Pairs       = find_gc_pairs(GCs),
                           Runtime     = gc_time(Pairs),
                           Invocations = length(Pairs),

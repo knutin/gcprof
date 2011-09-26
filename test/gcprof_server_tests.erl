@@ -14,7 +14,8 @@ server_test_() ->
      [
       ?_test(simple_with_shutdown()),
       ?_test(garbage_in_init()),
-      ?_test(example_single())
+      ?_test(example_single()),
+      ?_test(broken_identity_f())
      ]
     }.
 
@@ -73,6 +74,28 @@ garbage_in_init() ->
 
     ?assertEqual({key, {init, invocations}}, lists:keyfind(key, 1, Invocations)),
     ?assertEqual({observations, 1}, lists:keyfind(observations, 1, Invocations)).
+
+broken_identity_f() ->
+    ?assertEqual({ok, []}, gcprof_aggregator:get_stats()),
+
+    IdentityF = fun (_) ->
+                        exit(foobar),
+                        baz
+                end,
+
+    Pid = spawn(fun () ->
+                        gcprof:trace_me(IdentityF),
+                        erlang:yield(),
+                        lists:seq(1, 10000)
+                end),
+    Pid ! garbage,
+    timer:sleep(200),
+    {ok, Stats} = gcprof_aggregator:get_stats(),
+    [_, Runtime] = lists:sort(Stats),
+
+    ?assertEqual({key, {undefined, runtime}}, lists:keyfind(key, 1, Runtime)).
+
+
 
 
 example_single() ->

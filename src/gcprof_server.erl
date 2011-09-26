@@ -72,7 +72,7 @@ handle_info({'DOWN', _, process, Pid, _}, State) ->
 
 handle_info({results, Pid, Message, Runtime, Invocations}, State) ->
     IdentityF = orddict:fetch(Pid, State#state.identity_fs),
-    gcprof_aggregator:results(Pid, IdentityF(Message), Runtime, Invocations),
+    gcprof_aggregator:results(Pid, identify(IdentityF, Message), Runtime, Invocations),
     %%NewIdentityFs = orddict:erase(Pid, State#state.identity_fs),
     {noreply, State};
 
@@ -89,3 +89,12 @@ code_change(_OldVsn, State, _Extra) ->
 %%%===================================================================
 %%% Internal functions
 %%%===================================================================
+
+identify(F, M) ->
+    try
+        F(M)
+    catch
+        error:_ -> undefined;
+        throw:_ -> undefined;
+        exit:_ -> undefined
+    end.
