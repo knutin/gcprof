@@ -15,11 +15,9 @@ trace(Pid, IdentityF) ->
 trace_me(IdentityF) ->
     trace(self(), IdentityF).
 
-%% @doc: Traces the calling process if the second argument is
-%% 0. Allows tracing if the result of a modulo operation is 0.
-sample_me(IdentityF, 0) ->
-    trace(self(), IdentityF);
-sample_me(_, _) ->
-    ok.
-
-    
+%% @doc: Traces the calling process if the second argument is 0 or
+%% 'true'. Useful for executing sample operations that return 'true'
+%% or 'false' or '0'.
+sample_me(IdentityF, 0)    -> trace(self(), IdentityF);
+sample_me(IdentityF, true) -> trace(self(), IdentityF);
+sample_me(_, _)            -> ok.
