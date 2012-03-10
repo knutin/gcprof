@@ -2,7 +2,7 @@
 
 gcprof is a tool to measure garbage collection in a production
 system. For every message a process receives, gcprof tells you how
-much time was spent in garbage collection and how many passes was
+much time was spent in garbage collection and how many passes were
 done.
 
 
@@ -86,18 +86,18 @@ Example:
     gcprof:sample_me(IdentityF, Id rem Divisor)
 
 `sample_me/2` only samples if the second argument is 0. So in the
-above case, given an even distribution of ids, only 1% will of the
-processes be sampled.
+above case, given an even distribution of ids, only 1% of the 
+processes will be sampled.
 
 
 ## Impact on your system
 
 `gcprof:trace/2` uses a `gen_server:cast/2` under the hood so your
-process do not have to wait for gcprof. This also means that if gcprof
+process does not have to wait for gcprof. This also means that if gcprof
 is not running, nothing happens.
 
 If gcprof would crash, the processes would be restarted. When the
-gcprof tracer process goes away, the VM stops whatever traces was
+gcprof tracer process goes away, the VM stops whatever traces were
 active.
 
 
